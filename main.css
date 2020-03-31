@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+@font-face {
+  font-family: Geomanist;
+  src: url(../fonts/Geomanist.otf) format("opentype"), url(../fonts/Geomanist.woff2) format("woff2"),
+    url(../fonts/Geomanist.woff) format("woff"), url(../fonts/Geomanist.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Geomanist;
+  src: url(../fonts/Geomanist-Bold.otf) format("opentype"),
+    url(../fonts/Geomanist-Bold.woff2) format("woff2"), url(../fonts/Geomanist-Bold.woff) format("woff"),
+    url(../fonts/Geomanist-Bold.ttf) format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Geomanist;
+  src: url(../fonts/Geomanist-Light.otf) format("opentype"),
+    url(../fonts/Geomanist-Light.woff2) format("woff2"), url(../fonts/Geomanist-Light.woff) format("woff"),
+    url(../fonts/Geomanist-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #4f4f4f;
+  font-size:.9375rem;
+}
+
+a {
+  color: #4f4f4f;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
+  font-family: Geomanist,sans-serif;
+  color: #4f4f4f;
+  font-weight:700;
+}
+
+h1, .title {
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  letter-spacing: -.0625rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+h3 {  
+  font-size: 1.5625rem;  
+}
+
+.logo {
+  margin: 0 0 50px 0;
+  max-width: 200px;
+}
+
+.hero a {
+  color:#684cd6;
+}
+
+#container,
+header,
+footer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  width: 85%;
+}
+
+.box {
+  box-shadow: 0 0.625rem 1.25rem rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  padding: 0;
+  transition: all .2s linear;
+}
+
+.box:hover {
+  box-shadow: 0 0.225rem 0.25rem rgba(0,0,0,.1);
+}
+
+.box .info {
+  padding: 20px;
+  /* height: 200px; */
+  position: relative;
+}
+.box .info p {
+  display: none;
+}
+
+.box p.source-link {
+  position: absolute;
+  bottom: 15px;
+}
+
+.footer ul {
+  display: flex;  
+}
+
+.footer ul li {  
+  margin-right: 20px;
+}
+
+
+
+/* DEMO DETAIL */
+
+
+#button-group {
+  margin: 20px auto;
+}
+
+vctr-viewer,
+iframe {
+  box-shadow: 0 2px 30px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.06);
+  border-radius: 5px;
+}
+
+header .tabs {
+  text-align: center;
+  list-style: none;
+  padding: 20px 0;
+}
+
+header .tabs li {
+  display: inline;
+  margin-right: 20px;
+}
+
+header .tabs li a {
+  opacity:0.5;
+  text-decoration: none;
+}
+
+header .tabs li a:hover {
+  opacity:0.8;  
+}
+
+header .tabs li.active a {
+  font-weight: bold;
+  opacity:1;
+}
+
+footer .links {
+  list-style: none;
+  padding: 20px 10px;
+  text-align: center;
+}
+
+footer .links li {
+  display: inline;
+  margin-right: 20px;
+}
+
+footer .links li.active a {
+  font-weight: bold;
+}
