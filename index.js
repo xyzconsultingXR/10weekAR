@@ -1,50 +1,99 @@
-
 import { VctrApi } from "https://www.vectary.com/viewer-api/v1/api.js";
 
-async function run() {    
+let vctrApi;
+let hideBtn = document.getElementById("hide");
+let rocketBtn = document.getElementById("rocket");
+let baseBtn = document.getElementById("base");
+
+let annotationSwitch = true;
+let highlightState = false;
+
+const annotations = [
+    {
+        label: "1",
+        name: "Rocket",
+        text: "The spaceship flying around the space base",
+        objectName: "Rocket"
+    },
+    {
+        label: "2",
+        name: "Asteroid",
+        text: "253 Mathilde",
+        objectName: "Asteroid_Large"
+    },
+    {
+        label: "3",
+        name: "Space Base",
+        text: "Advance asteroid mining space base",
+        objectName: "Tower"
+    },
+    {
+        label: "4",
+        name: "Transmitter",
+        text: "Energy transmitter",
+        objectName: "Ring_2"
+    },
+    {
+        label: "5",
+        name: "Antenna",
+        text: "Radio wave antenna",
+        objectName: "Antenna"
+    }
+];
+
+let annotationsIds = [];
+
+function addAnotations() {
+    annotations.forEach(async annotation => {
+        const currentAnnotation = await vctrApi.addAnnotation(annotation);
+        annotationsIds.push(currentAnnotation.id);
+    })
+}
+
+function addListeners() {
+    rocketBtn.addEventListener("click", async _event => {
+        if (!highlightState && annotationSwitch) {
+            await vctrApi.highlightMeshesByName(["Rocket"], "#fcba03", 0.8, false);
+            await vctrApi.expandAnnotationsById(annotationsIds[0], true, true);
+            highlightState = true;
+        } else {
+            await vctrApi.unhighlightMeshesByName(["Rocket"]);
+            await vctrApi.expandAnnotationsById(annotationsIds[0], false, false);
+            highlightState = false;
+        }
+    });
+
+    hideBtn.addEventListener("click", async _event => {
+        annotationSwitch = !annotationSwitch;
+        await vctrApi.enableAnnotations(annotationSwitch);
+    });
+
+    baseBtn.addEventListener("click", async _event => {
+        await vctrApi.expandAnnotationsById([annotationsIds[3], annotationsIds[4]], true, true);
+    });
+}
+async function run() {
+    console.log("Example script running..");
 
     function errHandler(err) {
         console.log("API error", err);
     }
 
     async function onReady() {
-        console.log("API ready");
-        try {
-          
-            viewerApi.enableAnnotations(true);
-            const newAnnotation1 = await viewerApi.addAnnotation({
-                label: "A",
-                text: "Antenna Annotation",
-                name: "TestName",
-                objectName: "Satellite_Antenna"
-            });
-            console.log("New annotation created", newAnnotation1);
-            const newAnnotation2 = await viewerApi.addAnnotation({
-                label: "B",
-                text: "Space Base Annotation",
-                name: "TestName2",
-                objectName: "Space_Base"
-            });
-            console.log("New annotation created", newAnnotation2);
-          
-            console.log("Annotation by id", await viewerApi.getAnnotationById(newAnnotation2.id));
-            const allSceneObjects = await viewerApi.getObjects();
-            console.log("Objects", allSceneObjects); 
-          
-        } catch (e) {
-            errHandler(e);
-        }
+        console.log("API ready..");
     }
 
-    const viewerApi = new VctrApi("d6c1f27d-6a27-4c7e-bd7d-bd19d7faa56c", errHandler);
-
+    vctrApi = new VctrApi("test", errHandler);
     try {
-        await viewerApi.init();        
-        onReady();
+        await vctrApi.init();
     } catch (e) {
         errHandler(e);
     }
+
+    await vctrApi.enableAnnotations(annotationSwitch);
+    addAnotations();
+    addListeners();
+    onReady();
 }
 
 run();
-
